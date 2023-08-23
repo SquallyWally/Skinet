@@ -1,0 +1,6 @@
+﻿/Skinet.sln
+/API/bin/Debug/
+/API/obj/Debug/
+API/obj/Debug/net7.0/API.dll
+*.dll
+*.pdb
