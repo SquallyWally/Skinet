@@ -1,6 +1,9 @@
-﻿/Skinet.sln
-API/bin/*
-API/obj/*
-API/obj/Debug/*
-.idea/*
-.vscode/*
+﻿obj
+bin
+*.db
+appsettings.json
+*.rdb
+settings.json
+publish
+wwwroot
+.idea
