@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj": {}
+    "C:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj": {}
   },
   "projects": {
-    "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj": {
+    "C:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj",
+        "projectPath": "C:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj",
         "packagesPath": "C:\\Users\\mlk_s\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\obj\\",
+        "outputPath": "C:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
