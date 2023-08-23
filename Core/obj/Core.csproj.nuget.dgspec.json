@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj": {}
+    "c:\\Users\\mlk_s\\source\\repos\\Skinet\\Core\\Core.csproj": {}
   },
   "projects": {
-    "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj": {
+    "c:\\Users\\mlk_s\\source\\repos\\Skinet\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj",
-        "projectName": "API",
-        "projectPath": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\API.csproj",
+        "projectUniqueName": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\Core\\Core.csproj",
+        "projectName": "Core",
+        "projectPath": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\mlk_s\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\API\\obj\\",
+        "outputPath": "c:\\Users\\mlk_s\\source\\repos\\Skinet\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -28,7 +28,6 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -46,26 +45,6 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[7.0.5, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[7.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[7.0.10, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.4.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -78,9 +57,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
