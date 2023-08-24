@@ -1,4 +1,7 @@
+using Core.Interfaces;
+
 using Infrastructure.Data;
+using Infrastructure.Data.Repository;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +20,8 @@ builder.Services.AddDbContext<StoreContext>(
         {
             opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
