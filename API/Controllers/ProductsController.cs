@@ -1,4 +1,6 @@
-﻿using Core.Entities;
+﻿using API.Dtos;
+
+using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 
@@ -27,28 +29,56 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetProducts()
+    public async Task<IEnumerable<ProductsToReturnDto>> GetProducts()
     {
         var spec = new ProductsWithTypesAndBrandsSpecification();
 
-        return Ok(await _productsRepository.ListAsync(spec));
+        var products = await _productsRepository.ListAsync(spec);
+
+        return products.Select(
+            product => new ProductsToReturnDto
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    PictureUrl = product.PictureUrl,
+                    ProductBrand = product.ProductBrand.Name,
+                    ProductType = product.ProductType.Name,
+                });
     }
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<Product>> GetProduct(
+    public async Task<ActionResult<ProductsToReturnDto>> GetProduct(
         int id)
     {
         var spec = new ProductsWithTypesAndBrandsSpecification(id);
-        
-        return await _productsRepository.GetEntityWithSpec(spec);
+
+        var product = await _productsRepository.GetEntityWithSpec(spec);
+
+        return new ProductsToReturnDto
+            {
+                Id = product!.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                PictureUrl = product.PictureUrl,
+                ProductBrand = product.ProductBrand.Name,
+                ProductType = product.ProductType.Name,
+            };
     }
-        
 
     [HttpGet]
     [Route("brands")]
-    public async Task<ActionResult<List<ProductBrand>>> GetProductsBrands() => Ok(await _productBrandsRepository.ListAllAsync());
+    public async Task<ActionResult<List<ProductBrand>>> GetProductsBrands()
+    {
+        return Ok(await _productBrandsRepository.ListAllAsync());
+    }
 
     [HttpGet]
     [Route("types")]
-    public async Task<ActionResult<List<ProductType>>> GetProductsTypes() => Ok(await _productTypesRepository.ListAllAsync());
+    public async Task<ActionResult<List<ProductType>>> GetProductsTypes()
+    {
+        return Ok(await _productTypesRepository.ListAllAsync());
+    }
 }
