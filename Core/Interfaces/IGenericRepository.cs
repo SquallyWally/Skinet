@@ -11,7 +11,7 @@ public interface IGenericRepository<T>
 
     Task<IReadOnlyList<T>> ListAllAsync();
 
-    Task<T> GetEntityWithSpec(
+    Task<T?> GetEntityWithSpec(
         ISpecification<T> spec);
 
     Task<IReadOnlyList<T>> ListAsync(

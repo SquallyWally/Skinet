@@ -16,7 +16,7 @@ public class SpecificationEvaluator<TEntity>
 
         if ( spec.Criteria != null )
         {
-            query = query.Where(spec.Criteria);
+            query = query.Where(spec.Criteria); // ex: p => p.ProductTypeId == id
         }
 
         query = spec.Includes.Aggregate(

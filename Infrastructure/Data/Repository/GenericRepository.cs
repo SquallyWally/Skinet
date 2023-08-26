@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -24,4 +25,21 @@ public class GenericRepository<T> : IGenericRepository<T>
     public async Task<IReadOnlyList<T>> ListAllAsync() =>
         await _context.Set<T>()
             .ToListAsync();
+
+    public async Task<T?> GetEntityWithSpec(
+        ISpecification<T> spec) =>
+        await ApplySpecification(spec)
+            .FirstOrDefaultAsync();
+
+    public async Task<IReadOnlyList<T>> ListAsync(
+        ISpecification<T> spec) =>
+        ( await ApplySpecification(spec)
+            .ToListAsync() )!;
+
+    private IQueryable<T?> ApplySpecification(
+        ISpecification<T> spec) =>
+        SpecificationEvaluator<T>.GetQuery(
+            _context.Set<T>()
+                .AsQueryable(),
+            spec);
 }
