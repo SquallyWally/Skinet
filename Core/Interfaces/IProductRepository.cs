@@ -8,4 +8,6 @@ public interface IProductRepository
         int id);
 
     Task<IReadOnlyList<Product>> GetProductsAsync();
+    Task<IReadOnlyList<ProductBrand>> GetProductsBrandsAsync();
+    Task<IReadOnlyList<ProductType>> GetProductsTypesAsync();
 }

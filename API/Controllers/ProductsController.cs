@@ -24,4 +24,12 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult<Product>> GetProduct(
         int id) =>
         await _productRepository.GetProductByIdAsync(id);
+
+    [HttpGet]
+    [Route("brands")]
+    public async Task<ActionResult<List<ProductBrand>>> GetProductsBrands() => Ok(await _productRepository.GetProductsBrandsAsync());
+
+    [HttpGet]
+    [Route("types")]
+    public async Task<ActionResult<List<ProductType>>> GetProductsTypes() => Ok(await _productRepository.GetProductsTypesAsync());
 }
