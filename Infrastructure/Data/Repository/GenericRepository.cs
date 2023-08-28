@@ -36,10 +36,14 @@ public class GenericRepository<T> : IGenericRepository<T>
         ( await ApplySpecification(spec)
             .ToListAsync() )!;
 
+    #region Internal
+
     private IQueryable<T?> ApplySpecification(
         ISpecification<T> spec) =>
         SpecificationEvaluator<T>.GetQuery(
             _context.Set<T>()
                 .AsQueryable(),
             spec);
+
+    #endregion
 }

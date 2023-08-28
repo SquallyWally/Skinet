@@ -18,16 +18,20 @@ public class ProductRepositoryTests
         _productRepository = Substitute.For<IProductRepository>();
 
         _productRepository
-            .GetProductByIdAsync(_productId).Returns(_product);
+            .GetProductByIdAsync(_productId)
+            .Returns(_product);
 
         _productRepository
-            .GetProductsAsync().Returns(_products);
+            .GetProductsAsync()
+            .Returns(_products);
 
         _productRepository
-            .GetProductsBrandsAsync().Returns(_productBrands);
+            .GetProductsBrandsAsync()
+            .Returns(_productBrands);
 
         _productRepository
-            .GetProductsTypesAsync().Returns(_productTypes);
+            .GetProductsTypesAsync()
+            .Returns(_productTypes);
     }
 
     [Test]
@@ -43,7 +47,8 @@ public class ProductRepositoryTests
             result.Id,
             Is.EqualTo(_productId));
 
-        await _productRepository.Received().GetProductByIdAsync(_productId);
+        await _productRepository.Received()
+            .GetProductByIdAsync(_productId);
     }
 
     [Test]
@@ -59,7 +64,8 @@ public class ProductRepositoryTests
             result,
             Has.Count.EqualTo(_products.Count));
 
-        await _productRepository.Received().GetProductsAsync();
+        await _productRepository.Received()
+            .GetProductsAsync();
     }
 
     [Test]
@@ -75,7 +81,8 @@ public class ProductRepositoryTests
             result,
             Has.Count.EqualTo(_productBrands.Count));
 
-        await _productRepository.Received().GetProductsBrandsAsync();
+        await _productRepository.Received()
+            .GetProductsBrandsAsync();
     }
 
     [Test]
@@ -91,7 +98,8 @@ public class ProductRepositoryTests
             result,
             Has.Count.EqualTo(_productTypes.Count));
 
-        await _productRepository.Received().GetProductsTypesAsync();
+        await _productRepository.Received()
+            .GetProductsTypesAsync();
     }
 
     #region Helpers
