@@ -3,41 +3,48 @@ using Core.Interfaces;
 
 using NSubstitute;
 
-namespace Infrastructure.Tests.Products;
+namespace Infrastructure.Tests;
 
 [TestFixture]
-public class ProductRepositoryTests
+public class GenericRepositoryTests
 {
 #pragma warning disable CS8618
-    private IProductRepository _productRepository;
+    private IGenericRepository<Product> _productRepository;
+
+    private IGenericRepository<ProductType> _productTypesRepository;
+
+    private IGenericRepository<ProductBrand> _productBrandsRepository;
+
 #pragma warning restore CS8618
 
     [SetUp]
     public void Setup()
     {
-        _productRepository = Substitute.For<IProductRepository>();
+        _productRepository = Substitute.For<IGenericRepository<Product>>();
+        _productTypesRepository = Substitute.For<IGenericRepository<ProductType>>();
+        _productBrandsRepository = Substitute.For<IGenericRepository<ProductBrand>>();
 
         _productRepository
-            .GetProductByIdAsync(_productId)
+            .GetByIdAsync(_productId)
             .Returns(_product);
 
         _productRepository
-            .GetProductsAsync()
+            .ListAllAsync()
             .Returns(_products);
 
-        _productRepository
-            .GetProductsBrandsAsync()
-            .Returns(_productBrands);
-
-        _productRepository
-            .GetProductsTypesAsync()
+        _productTypesRepository
+            .ListAllAsync()
             .Returns(_productTypes);
+
+        _productBrandsRepository
+            .ListAllAsync()
+            .Returns(_productBrands);
     }
 
     [Test]
     public async Task GetProductByIdAsync_ProductExists_ReturnsProduct()
     {
-        var result = await _productRepository.GetProductByIdAsync(_productId);
+        var result = await _productRepository.GetByIdAsync(_productId);
 
         Assert.That(
             result,
@@ -48,13 +55,13 @@ public class ProductRepositoryTests
             Is.EqualTo(_productId));
 
         await _productRepository.Received()
-            .GetProductByIdAsync(_productId);
+            .GetByIdAsync(_productId);
     }
 
     [Test]
     public async Task GetProductsAsync_ReturnsListOfProducts()
     {
-        var result = await _productRepository.GetProductsAsync();
+        var result = await _productRepository.ListAllAsync();
 
         Assert.That(
             result,
@@ -65,13 +72,13 @@ public class ProductRepositoryTests
             Has.Count.EqualTo(_products.Count));
 
         await _productRepository.Received()
-            .GetProductsAsync();
+            .ListAllAsync();
     }
 
     [Test]
     public async Task GetProductsBrandsAsync_ReturnsListOfProductBrands()
     {
-        var result = await _productRepository.GetProductsBrandsAsync();
+        var result = await _productBrandsRepository.ListAllAsync();
 
         Assert.That(
             result,
@@ -81,14 +88,14 @@ public class ProductRepositoryTests
             result,
             Has.Count.EqualTo(_productBrands.Count));
 
-        await _productRepository.Received()
-            .GetProductsBrandsAsync();
+        await _productBrandsRepository.Received()
+            .ListAllAsync();
     }
 
     [Test]
     public async Task GetProductsTypesAsync_ReturnsListOfProductTypes()
     {
-        var result = await _productRepository.GetProductsTypesAsync();
+        var result = await _productTypesRepository.ListAllAsync();
 
         Assert.That(
             result,
@@ -98,8 +105,8 @@ public class ProductRepositoryTests
             result,
             Has.Count.EqualTo(_productTypes.Count));
 
-        await _productRepository.Received()
-            .GetProductsTypesAsync();
+        await _productTypesRepository.Received()
+            .ListAllAsync();
     }
 
     #region Helpers
