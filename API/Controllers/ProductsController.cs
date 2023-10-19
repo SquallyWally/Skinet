@@ -1,4 +1,5 @@
 ﻿using API.Dtos;
+using API.Errors;
 
 using AutoMapper;
 
@@ -51,6 +52,8 @@ public class ProductsController : ControllerBase
         var spec = new ProductsWithTypesAndBrandsSpecification(id);
 
         var product = await _productsRepository.GetEntityWithSpec(spec);
+        
+        if(product == null) return NotFound(new ApiResponse(404));
 
         return _mapper.Map<Product, ProductsToReturnDto>(product);
     }
