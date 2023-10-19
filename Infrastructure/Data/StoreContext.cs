@@ -8,6 +8,7 @@ namespace Infrastructure.Data;
 
 public class StoreContext : DbContext
 {
+    private const string PROVIDER_NAME = "Microsoft.EntityFrameworkCore.Sqlite";
     public StoreContext(
         DbContextOptions<StoreContext> options)
         : base(options)
@@ -25,5 +26,18 @@ public class StoreContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        
+        if(Database.ProviderName == PROVIDER_NAME)
+        {
+            foreach ( var entityType in modelBuilder.Model.GetEntityTypes() )
+            {
+                var properties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(decimal));
+
+                foreach ( var property in properties )
+                {   
+                    modelBuilder.Entity(entityType.Name).Property(property.Name).HasConversion<double>();
+                }
+            }
+        }
     }
 }

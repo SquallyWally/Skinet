@@ -36,9 +36,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<ProductsToReturnDto>>> GetProducts()
+    public async Task<ActionResult<IReadOnlyList<ProductsToReturnDto>>> GetProducts(string sort)
     {
-        var spec = new ProductsWithTypesAndBrandsSpecification();
+        var spec = new ProductsWithTypesAndBrandsSpecification(sort);
 
         var products = await _productsRepository.ListAsync(spec);
 
