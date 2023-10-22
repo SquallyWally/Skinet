@@ -44,7 +44,7 @@ public class BaseSpecification<T> : ISpecification<T>
     protected void AddOrderByDescending(
         Expression<Func<T, object>> orderByDescendingExpression)
     {
-        OrderBy = orderByDescendingExpression;
+        OrderByDescending = orderByDescendingExpression;
     }
 
     protected void ApplyPaging(
