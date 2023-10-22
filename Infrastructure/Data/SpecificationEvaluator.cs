@@ -18,15 +18,21 @@ public class SpecificationEvaluator<TEntity>
         {
             query = query.Where(spec.Criteria); // ex: p => p.ProductTypeId == id
         }
-        
+
         if ( spec.OrderBy != null )
         {
             query = query.OrderBy(spec.OrderBy); // ex: p => p.ProductTypeId == id
         }
-        
+
         if ( spec.OrderByDescending != null )
         {
             query = query.OrderByDescending(spec.OrderByDescending); // ex: p => p.ProductTypeId == id
+        }
+
+        if ( spec.IsPagingEnabled )
+        {
+            query = query.Skip(spec.Skip)
+                .Take(spec.Take);
         }
 
         query = spec.Includes.Aggregate(

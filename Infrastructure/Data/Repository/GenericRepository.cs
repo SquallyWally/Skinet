@@ -36,6 +36,11 @@ public class GenericRepository<T> : IGenericRepository<T>
         ( await ApplySpecification(spec)
             .ToListAsync() )!;
 
+    public async Task<int> CountAsync(
+        ISpecification<T> spec) =>
+        await ApplySpecification(spec)
+            .CountAsync();
+
     #region Internal
 
     private IQueryable<T?> ApplySpecification(
