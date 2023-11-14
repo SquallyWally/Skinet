@@ -35,7 +35,7 @@ export class ShopComponent implements OnInit {
     this.shopService.getProducts(this.shopParams).subscribe({
       next: (response) => {
         this.products = response.data;
-        this.shopParams.pageNumber = response.pageIndex;
+        this.shopParams.pageNumber = response.pageNumber;
         this.shopParams.pageSize = response.pageSize;
         this.totalCount = response.count;
       },
