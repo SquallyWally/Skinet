@@ -21,7 +21,7 @@ export class ShopService {
       params = params.append('brandId', shopParams.brandId);
     if (shopParams.typeId) params = params.append('typeId', shopParams.typeId);
     params = params.append('sort', shopParams.sort);
-    params = params.append('pageIndex', shopParams.pageIndex);
+    params = params.append('pageNumber', shopParams.pageNumber);
     params = params.append('pageSize', shopParams.pageSize);
 
     return this.http.get<Pagination<Product[]>>(this.baseUrl + 'products', {
