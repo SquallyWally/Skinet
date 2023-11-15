@@ -13,14 +13,14 @@ public class ProductsWithTypesAndBrandsSpecificationTests
     {
         // Arrange
         var productParams = new ProductSpecParams
-            {
-                Search = _name,
-                BrandId = 1,
-                TypeId = 2,
-                PageSize = 10,
-                PageIndex = 1,
-                Sort = _sort,
-            };
+        {
+            Search = _name,
+            BrandId = 1,
+            TypeId = 2,
+            PageSize = 10,
+            PageNumber = 1,
+            Sort = _sort,
+        };
 
         // Act
         var specification = new ProductsWithTypesAndBrandsSpecification(productParams);
@@ -30,11 +30,11 @@ public class ProductsWithTypesAndBrandsSpecificationTests
         var compiledSpecCriteria = specification.Criteria.Compile();
 
         var product = new Product
-            {
-                Name = _name,
-                ProductBrandId = 1,
-                ProductTypeId = 2,
-            }; 
+        {
+            Name = _name,
+            ProductBrandId = 1,
+            ProductTypeId = 2,
+        };
 
         var actualResult = compiledSpecCriteria(product);
         var expectedResult = expectedCriteria.Compile()(product);
@@ -54,10 +54,10 @@ public class ProductsWithTypesAndBrandsSpecificationTests
         ProductSpecParams productParams)
     {
         return x =>
-            ( string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower()
-                .Contains(productParams.Search) ) &&
-            ( !productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId ) &&
-            ( !productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId );
+            (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower()
+                .Contains(productParams.Search)) &&
+            (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) &&
+            (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId);
     }
 
     #endregion

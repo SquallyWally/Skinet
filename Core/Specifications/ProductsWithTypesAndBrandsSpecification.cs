@@ -18,7 +18,7 @@ public class ProductsWithTypesAndBrandsSpecification : BaseSpecification<Product
         AddOrderBy(x => x.Name);
 
         ApplyPaging(
-            productParams.PageSize * ( productParams.PageIndex - 1 ),
+            productParams.PageSize * ( productParams.PageNumber - 1 ),
             productParams.PageSize);
 
         if ( !string.IsNullOrEmpty(productParams.Sort) )

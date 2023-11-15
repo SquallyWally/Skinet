@@ -25,10 +25,10 @@ public class ProductsController : ControllerBase
     private readonly IMapper _mapper;
 
     public ProductsController(
-        IGenericRepository<Product>      productsRepository,
+        IGenericRepository<Product> productsRepository,
         IGenericRepository<ProductBrand> productBrandsRepository,
-        IGenericRepository<ProductType>  productTypesRepository,
-        IMapper                          mapper)
+        IGenericRepository<ProductType> productTypesRepository,
+        IMapper mapper)
     {
         _productsRepository = productsRepository;
         _productBrandsRepository = productBrandsRepository;
@@ -48,11 +48,11 @@ public class ProductsController : ControllerBase
 
         var products = await _productsRepository.ListAsync(spec);
 
-        var data = ( _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products) );
+        var data = (_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products));
 
         return Ok(
             new Pagination<ProductsToReturnDto>(
-                productParams.PageIndex,
+                productParams.PageNumber,
                 productParams.PageSize,
                 totalItems,
                 data));
@@ -65,8 +65,8 @@ public class ProductsController : ControllerBase
         var spec = new ProductsWithTypesAndBrandsSpecification(id);
 
         var product = await _productsRepository.GetEntityWithSpec(spec);
-        
-        if ( product == null )
+
+        if (product == null)
             return NotFound(new ApiResponse(404));
 
         return _mapper.Map<Product, ProductsToReturnDto>(product);
