@@ -1,7 +1,7 @@
 <ng-container *ngIf="$any(bcService.breadcrumbs$ | async) as breadcrumbs">
   <section
     *ngIf="breadcrumbs[breadcrumbs.length - 1].label !== 'Home'"
-    class="py-5"
+    class="py-5 mb-3"
   >
     <div class="container">
       <div class="row d-flex align-items-center">
