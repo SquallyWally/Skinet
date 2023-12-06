@@ -43,9 +43,15 @@
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
-                    <i class="fa fa-minus-circle text-warning me-2"></i>
+                    <i
+                      class="fa fa-minus-circle text-warning me-2"
+                      (click)="removeItem(item.id, 1)"
+                    ></i>
                     <strong class="quantity-strong">{{ item.quantity }}</strong>
-                    <i class="fa fa-plus-circle text-warning mx-2"></i>
+                    <i
+                      class="fa fa-plus-circle text-warning mx-2"
+                      (click)="incrementQuantity(item)"
+                    ></i>
                   </div>
                 </td>
                 <td class="align-middle">
@@ -53,7 +59,10 @@
                 </td>
                 <td class="align-middle">
                   <a class="text-danger">
-                    <i class="fa fa-trash"></i>
+                    <i
+                      class="fa fa-trash"
+                      (click)="removeItem(item.id, item.quantity)"
+                    ></i>
                   </a>
                 </td>
               </tr>
