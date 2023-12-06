@@ -24,7 +24,7 @@ export class BasketService {
   }
 
   setBasket(basket: Basket) {
-    return this.http.post<Basket>(`${this.baseUrl}basket$`, basket).subscribe({
+    return this.http.post<Basket>(`${this.baseUrl}basket`, basket).subscribe({
       next: (basket) => this.basketSource.next(basket),
     });
   }
