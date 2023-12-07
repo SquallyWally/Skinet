@@ -8,7 +8,8 @@ import { NotFoundComponent } from './core/not-found/not-found.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent, data: {breadcrumb: 'Home'}
+    component: HomeComponent,
+    data: { breadcrumb: 'Home' },
   },
   {
     path: 'test-error',
@@ -24,7 +25,17 @@ const routes: Routes = [
   },
   {
     path: 'shop',
-    loadChildren: () => import('./shop/shop.module').then((m) => m.ShopModule),
+    loadChildren: () => import('./shop/shop.module').then((s) => s.ShopModule),
+  },
+  {
+    path: 'basket',
+    loadChildren: () =>
+      import('./basket/basket.module').then((b) => b.BasketModule),
+  },
+  {
+    path: 'checkout',
+    loadChildren: () =>
+      import('./checkout/checkout.module').then((c) => c.CheckoutModule),
   },
   {
     path: '**',
