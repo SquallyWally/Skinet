@@ -25,12 +25,17 @@ const routes: Routes = [
   },
   {
     path: 'shop',
-    loadChildren: () => import('./shop/shop.module').then((m) => m.ShopModule),
+    loadChildren: () => import('./shop/shop.module').then((s) => s.ShopModule),
   },
   {
     path: 'basket',
     loadChildren: () =>
       import('./basket/basket.module').then((b) => b.BasketModule),
+  },
+  {
+    path: 'checkout',
+    loadChildren: () =>
+      import('./checkout/checkout.module').then((c) => c.CheckoutModule),
   },
   {
     path: '**',
