@@ -25,15 +25,18 @@ public class ProductsController : ControllerBase
     private readonly IMapper _mapper;
 
     public ProductsController(
-        IGenericRepository<Product> productsRepository,
+        IGenericRepository<Product>      productsRepository,
         IGenericRepository<ProductBrand> productBrandsRepository,
-        IGenericRepository<ProductType> productTypesRepository,
-        IMapper mapper)
+        IGenericRepository<ProductType>  productTypesRepository,
+        IMapper                          mapper)
     {
-        _productsRepository = productsRepository;
-        _productBrandsRepository = productBrandsRepository;
-        _productTypesRepository = productTypesRepository;
-        _mapper = mapper;
+        _productsRepository = productsRepository ?? throw new ArgumentNullException(nameof(productsRepository));
+
+        _productBrandsRepository = productBrandsRepository ?? throw new ArgumentNullException(nameof(productBrandsRepository));
+
+        _productTypesRepository = productTypesRepository ?? throw new ArgumentNullException(nameof(productTypesRepository));
+
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     [HttpGet]
@@ -48,7 +51,7 @@ public class ProductsController : ControllerBase
 
         var products = await _productsRepository.ListAsync(spec);
 
-        var data = (_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products));
+        var data = ( _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products) );
 
         return Ok(
             new Pagination<ProductsToReturnDto>(
@@ -66,7 +69,7 @@ public class ProductsController : ControllerBase
 
         var product = await _productsRepository.GetEntityWithSpec(spec);
 
-        if (product == null)
+        if ( product == null )
             return NotFound(new ApiResponse(404));
 
         return _mapper.Map<Product, ProductsToReturnDto>(product);
