@@ -4,6 +4,7 @@ using Core.Interfaces;
 
 using Infrastructure.Data;
 using Infrastructure.Data.Repository;
+using Infrastructure.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,7 @@ public static class ApplicationServiceExtensions
             typeof(IGenericRepository<>),
             typeof(GenericRepository<>));
 
+        services.AddScoped<ITokenService, TokenService>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.Configure<ApiBehaviorOptions>(
