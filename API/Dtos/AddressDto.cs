@@ -1,6 +1,6 @@
-﻿using Core.Entities.Identity;
+﻿namespace API.Dtos;
 
-public class Address
+public class AddressDto
 {
     public int Id { get; init; }
 
@@ -15,8 +15,4 @@ public class Address
     public string State { get; init; }
 
     public string ZipCode { get; init; }
-
-    public string AppUserId { get; init; }
-
-    public AppUser AppUser { get; init; }
 }

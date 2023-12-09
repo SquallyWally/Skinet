@@ -51,7 +51,7 @@ public class ProductsController : ControllerBase
 
         var products = await _productsRepository.ListAsync(spec);
 
-        var data = ( _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products) );
+        var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
 
         return Ok(
             new Pagination<ProductsToReturnDto>(

@@ -6,5 +6,5 @@ public class AppUser : IdentityUser
 {
     public string DisplayName { get; init; }
 
-    public Address Address { get; init; }
+    public Address Address { get; set; }
 }
