@@ -14,20 +14,11 @@ public class SpecificationEvaluator<TEntity>
     {
         var query = inputQuery;
 
-        if ( spec.Criteria != null )
-        {
-            query = query.Where(spec.Criteria); // ex: p => p.ProductTypeId == id
-        }
+        query = query.Where(spec.Criteria); // ex: p => p.ProductTypeId == id
 
-        if ( spec.OrderBy != null )
-        {
-            query = query.OrderBy(spec.OrderBy); // ex: p => p.ProductTypeId == id
-        }
+        query = query.OrderBy(spec.OrderBy); // ex: p => p.ProductTypeId == id
 
-        if ( spec.OrderByDescending != null )
-        {
-            query = query.OrderByDescending(spec.OrderByDescending); // ex: p => p.ProductTypeId == id
-        }
+        query = query.OrderByDescending(spec.OrderByDescending); // ex: p => p.ProductTypeId == id
 
         if ( spec.IsPagingEnabled )
         {

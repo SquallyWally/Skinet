@@ -4,6 +4,7 @@ using Core.Interfaces;
 
 using Infrastructure.Data;
 using Infrastructure.Data.Repository;
+using Infrastructure.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ public static class ApplicationServiceExtensions
 {
     public static IServiceCollection AddApplicationServices(
         this IServiceCollection services,
-        IConfiguration          config)
+        IConfiguration          configuration)
     {
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
@@ -25,13 +26,13 @@ public static class ApplicationServiceExtensions
         services.AddDbContext<StoreContext>(
             opt =>
                 {
-                    opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                    opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
                 });
 
         services.AddSingleton<IConnectionMultiplexer>(
             c =>
                 {
-                    var options = ConfigurationOptions.Parse(config.GetConnectionString("Redis"));
+                    var options = ConfigurationOptions.Parse(configuration.GetConnectionString("Redis"));
 
                     return ConnectionMultiplexer.Connect(options);
                 });
@@ -43,6 +44,7 @@ public static class ApplicationServiceExtensions
             typeof(IGenericRepository<>),
             typeof(GenericRepository<>));
 
+        services.AddScoped<ITokenService, TokenService>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.Configure<ApiBehaviorOptions>(
