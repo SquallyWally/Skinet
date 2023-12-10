@@ -16,17 +16,14 @@ builder.Services.AddControllers();
 
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddSwaggerDocumentation();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-if ( app.Environment.IsDevelopment() )
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwaggerDocumentation();
 
 app.UseStaticFiles();
 

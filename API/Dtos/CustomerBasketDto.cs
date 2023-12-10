@@ -7,5 +7,5 @@ public class CustomerBasketDto
     [Required]
     public string Id { get; init; }
 
-    public List<BasketItemDto> Items { get; init; } = new();
+    public List<BasketItemDto> BasketItems { get; init; } = new();
 }

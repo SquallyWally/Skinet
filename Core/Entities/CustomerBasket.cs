@@ -16,5 +16,5 @@ public class CustomerBasket
 
     public string Id { get; init; }
 
-    public List<BasketItem> Items { get; init; } = new();
+    public List<BasketItem> BasketItems { get; init; } = new();
 }
