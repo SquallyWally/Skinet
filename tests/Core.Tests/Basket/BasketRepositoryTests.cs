@@ -124,7 +124,7 @@ public class BasketRepositoryTests
     internal readonly CustomerBasket _customerBasket = new()
         {
             Id = _basketId,
-            Items = new List<BasketItem>(),
+            BasketItems = new List<BasketItem>(),
         };
 
     #endregion
