@@ -12,12 +12,12 @@ export interface BasketItem {
 
 export interface Basket {
   id: string;
-  items: BasketItem[];
+  basketItems: BasketItem[];
 }
 
 export class Basket implements Basket {
   id = cuid();
-  items: BasketItem[] = [];
+  basketItems: BasketItem[] = [];
 }
 
 export interface BasketTotals {

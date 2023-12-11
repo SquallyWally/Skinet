@@ -27,7 +27,7 @@
         *ngIf="basketService.basketSource$ | async as basket"
         class="cart-no"
       >
-        {{ getCount(basket.items) }}
+        {{ getCount(basket.basketItems) }}
       </div>
     </a>
     <a routerLink="/account/login" class="btn btn-outline-secondary me-2"
