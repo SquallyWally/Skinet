@@ -38,6 +38,11 @@ const routes: Routes = [
       import('./checkout/checkout.module').then((c) => c.CheckoutModule),
   },
   {
+    path: 'account',
+    loadChildren: () =>
+      import('./account/account.module').then((c) => c.AccountModule),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
