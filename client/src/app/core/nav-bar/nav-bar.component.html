@@ -30,11 +30,18 @@
         {{ getCount(basket.basketItems) }}
       </div>
     </a>
-    <a routerLink="/account/login" class="btn btn-outline-secondary me-2"
-      >Login</a
-    >
-    <a routerLink="/account/register" class="btn btn-outline-secondary me-3"
-      >Sign up</a
-    >
+
+    <ng-container>
+      <a routerLink="/account/login" class="btn btn-outline-secondary me-2"
+        >Login</a
+      >
+      <a routerLink="/account/register" class="btn btn-outline-secondary me-3"
+        >Sign up</a
+      >
+    </ng-container>
+
+    <ng-container *ngIf="accountService.currentUser$ | async as user">
+      <p>Welcome {{ user.displayName }}</p>
+    </ng-container>
   </div>
 </header>
