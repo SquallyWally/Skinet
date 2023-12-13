@@ -4,29 +4,22 @@
       <div class="text-center mb-5">
         <h1 class="mb-3">Login</h1>
       </div>
+      <app-text-input
+        [formControl]="loginForm.controls['email']"
+        [label]="'Email Address'"
+      ></app-text-input>
+      <app-text-input
+        [formControl]="loginForm.controls['password']"
+        [label]="'Password'"
+        [type]="'password'"
+      ></app-text-input>
 
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          formControlName="email"
-          class="form-control"
-          id="floatingInput"
-          placeholder="name@example.com"
-        />
-        <label for="floatingInput">Email address</label>
-      </div>
-      <div class="form-floating">
-        <input
-          type="password"
-          formControlName="password"
-          class="form-control"
-          id="floatingPassword"
-          placeholder="Password"
-        />
-        <label for="floatingPassword">Password</label>
-      </div>
       <div class="d-grid">
-        <button class="btn btn-lg btn-primary mt-3" type="submit">
+        <button
+          [disabled]="loginForm.invalid"
+          class="btn btn-lg btn-primary mt-3"
+          type="submit"
+        >
           Sign In
         </button>
       </div>
