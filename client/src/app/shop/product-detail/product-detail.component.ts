@@ -40,7 +40,7 @@ export class ProductDetailComponent implements OnInit {
           // with take the request has been complete and we've been succesfully unsubbed from it
           this.basketService.basketSource$.pipe(take(1)).subscribe({
             next: (basket) => {
-              const item = basket?.items.find((x) => x.id === +id);
+              const item = basket?.basketItems.find((x) => x.id === +id);
               if (item) {
                 this.quantity = item.quantity;
                 this.quantityInBasket = item.quantity;

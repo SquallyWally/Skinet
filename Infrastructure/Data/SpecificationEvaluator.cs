@@ -9,18 +9,27 @@ public class SpecificationEvaluator<TEntity>
     where TEntity : BaseEntity
 {
     public static IQueryable<TEntity> GetQuery(
-        IQueryable<TEntity>     inputQuery,
+        IQueryable<TEntity> inputQuery,
         ISpecification<TEntity> spec)
     {
         var query = inputQuery;
 
-        query = query.Where(spec.Criteria); // ex: p => p.ProductTypeId == id
+        if (spec.Criteria != null)
+        {
+            query = query.Where(spec.Criteria); // ex: p => p.ProductTypeId == id
+        }
 
-        query = query.OrderBy(spec.OrderBy); // ex: p => p.ProductTypeId == id
+        if (spec.OrderBy != null)
+        {
+            query = query.OrderBy(spec.OrderBy); // ex: p => p.ProductTypeId == id
+        }
 
-        query = query.OrderByDescending(spec.OrderByDescending); // ex: p => p.ProductTypeId == id
+        if (spec.OrderByDescending != null)
+        {
+            query = query.OrderByDescending(spec.OrderByDescending); // ex: p => p.ProductTypeId == id
+        }
 
-        if ( spec.IsPagingEnabled )
+        if (spec.IsPagingEnabled)
         {
             query = query.Skip(spec.Skip)
                 .Take(spec.Take);

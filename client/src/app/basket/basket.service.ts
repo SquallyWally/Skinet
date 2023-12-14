@@ -47,7 +47,7 @@ export class BasketService {
     }
 
     const basket = this.getCurrentBasketValue() ?? this.createBasket();
-    basket.items = this.addOrUpdateItem(basket.items, item, quantity);
+    basket.basketItems = this.addOrUpdateItem(basket.basketItems, item, quantity);
     this.setBasket(basket);
   }
 
@@ -55,14 +55,14 @@ export class BasketService {
     const basket = this.getCurrentBasketValue();
     if (!basket) return;
 
-    const item = basket.items.find((x) => x.id === id);
+    const item = basket.basketItems.find((x) => x.id === id);
     if (item) {
       item.quantity -= quantity;
       if (item.quantity === 0) {
-        basket.items = basket.items.filter((x) => x.id !== id);
+        basket.basketItems = basket.basketItems.filter((x) => x.id !== id);
       }
 
-      if (basket.items.length > 0) {
+      if (basket.basketItems.length > 0) {
         this.setBasket(basket);
       } else {
         this.deleteBasket(basket);
@@ -81,18 +81,18 @@ export class BasketService {
   }
 
   addOrUpdateItem(
-    items: BasketItem[],
+    basketItems: BasketItem[],
     itemToAdd: BasketItem,
     quantity: number
   ): BasketItem[] {
-    const item = items.find((x) => x.id === itemToAdd.id);
+    const item = basketItems.find((x) => x.id === itemToAdd.id);
     if (item) {
       item.quantity += quantity;
     } else {
       itemToAdd.quantity = quantity;
-      items.push(itemToAdd);
+      basketItems.push(itemToAdd);
     }
-    return items;
+    return basketItems;
   }
 
   createBasket(): Basket {
@@ -117,7 +117,7 @@ export class BasketService {
     const basket = this.getCurrentBasketValue();
     if (!basket) return;
     const shipping = 0;
-    const subtotal = basket.items.reduce((a, b) => b.price * b.quantity + a, 0);
+    const subtotal = basket.basketItems.reduce((a, b) => b.price * b.quantity + a, 0);
     const total = subtotal + shipping;
     this.basketTotalSource.next({ shipping, total, subtotal });
   }
