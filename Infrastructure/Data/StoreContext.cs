@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 
 using Core.Entities;
+using Core.Entities.OrderAggregate;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,12 @@ public class StoreContext : DbContext
     public DbSet<ProductBrand> ProductBrands { get; set; }
 
     public DbSet<ProductType> ProductTypes { get; set; }
+
+    public DbSet<Order> Orders { get; init; }
+
+    public DbSet<OrderItem> OrderItems { get; init; }
+
+    public DbSet<DeliveryMethod> DeliveryMethods { get; init; }
 
     protected override void OnModelCreating(
         ModelBuilder modelBuilder)
