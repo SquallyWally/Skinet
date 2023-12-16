@@ -44,6 +44,7 @@ public static class ApplicationServiceExtensions
             typeof(IGenericRepository<>),
             typeof(GenericRepository<>));
 
+        services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -11,6 +11,6 @@ public class DeliveryMethodConfiguration : IEntityTypeConfiguration<DeliveryMeth
         EntityTypeBuilder<DeliveryMethod> builder)
     {
         builder.Property(i => i.Price)
-            .HasColumnType("decimal(18,2");
+            .HasColumnType("decimal(18,2)");
     }
 }
