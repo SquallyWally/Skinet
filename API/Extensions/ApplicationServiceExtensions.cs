@@ -39,6 +39,7 @@ public static class ApplicationServiceExtensions
 
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IBasketRepository, BasketRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped(
             typeof(IGenericRepository<>),

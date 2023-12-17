@@ -24,7 +24,6 @@
 
     <ItemGroup>
         <Folder Include="Data\SeedData\"/>
-        <Folder Include="Data\Services\"/>
     </ItemGroup>
 
 </Project>
