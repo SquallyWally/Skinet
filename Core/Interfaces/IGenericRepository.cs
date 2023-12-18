@@ -16,6 +16,18 @@ public interface IGenericRepository<T>
 
     Task<IReadOnlyList<T>> ListAsync(
         ISpecification<T> spec);
-    
-    Task<int> CountAsync(ISpecification<T> spec);
+
+    Task<int> CountAsync(
+        ISpecification<T> spec);
+
+    // are not async because we actually use it to track the change in memory. The Unit of Work will handle the saving changes
+    // are not async because we actually use it to track the change in memory. The Unit of Work will handle the saving changes
+    void Add(
+        T entity);
+
+    void Update(
+        T entity);
+
+    void Delete(
+        T entity);
 }

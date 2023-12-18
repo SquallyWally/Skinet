@@ -39,11 +39,13 @@ public static class ApplicationServiceExtensions
 
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IBasketRepository, BasketRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped(
             typeof(IGenericRepository<>),
             typeof(GenericRepository<>));
 
+        services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

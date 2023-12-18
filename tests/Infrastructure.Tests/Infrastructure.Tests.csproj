@@ -11,6 +11,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.10"/>
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.0.3" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>
         <PackageReference Include="NSubstitute" Version="5.0.0"/>
         <PackageReference Include="NUnit" Version="3.13.3"/>
@@ -21,8 +22,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Core\Core.csproj"/>
-        <ProjectReference Include="..\Infrastructure\Infrastructure.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
+
+
 
 
 </Project>
