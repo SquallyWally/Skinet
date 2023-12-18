@@ -1,6 +1,7 @@
 ﻿using Core.Entities;
 using Core.Entities.OrderAggregate;
 using Core.Interfaces;
+using Core.Specifications;
 
 using OrderAddress = Core.Entities.OrderAggregate.Address;
 
@@ -8,23 +9,16 @@ namespace Infrastructure.Services;
 
 public class OrderService : IOrderService
 {
-    private readonly IGenericRepository<Order> _orderRepository;
-
-    private readonly IGenericRepository<DeliveryMethod> _deliveryRepository;
-
-    private readonly IGenericRepository<Product> _productsRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     private readonly IBasketRepository _basketRepository;
 
     public OrderService(
-        IGenericRepository<Order>          orderRepository,
-        IGenericRepository<DeliveryMethod> deliveryRepository,
-        IGenericRepository<Product>        productsRepository,
-        IBasketRepository                  basketRepository)
+        IUnitOfWork       unitOfWork,
+        IBasketRepository basketRepository)
     {
-        _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
-        _deliveryRepository = deliveryRepository ?? throw new ArgumentNullException(nameof(deliveryRepository));
-        _productsRepository = productsRepository ?? throw new ArgumentNullException(nameof(productsRepository));
+        _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+
         _basketRepository = basketRepository ?? throw new ArgumentNullException(nameof(basketRepository));
     }
 
@@ -42,7 +36,8 @@ public class OrderService : IOrderService
 
         foreach ( var item in retrievedBasket.BasketItems )
         {
-            var productItem = await _productsRepository.GetByIdAsync(item.Id);
+            var productItem = await _unitOfWork.Repository<Product>()
+                .GetByIdAsync(item.Id);
 
             var itemOrdered = new ProductItemOrdered(
                 productItem.Id,
@@ -56,9 +51,11 @@ public class OrderService : IOrderService
 
             orderItems.Add(orderItem);
         }
-        
+
         // get delivery method from repo
-        var deliveryItem = await _deliveryRepository.GetByIdAsync(deliveryMethodId);
+
+        var deliveryItem = await _unitOfWork.Repository<DeliveryMethod>()
+            .GetByIdAsync(deliveryMethodId);
 
         //get subtotal
         var subtotal = orderItems.Sum(item => item.Price);
@@ -71,7 +68,17 @@ public class OrderService : IOrderService
             deliveryItem,
             subtotal);
 
+        _unitOfWork.Repository<Order>()
+            .Add(order);
+
         // save 
+        var result = await _unitOfWork.Complete();
+
+        if ( result <= 0 )
+            return null;
+
+        // delete basket
+        await _basketRepository.DeleteBasketAsync(basketId);
 
         return order;
     }
@@ -79,18 +86,25 @@ public class OrderService : IOrderService
     public async Task<IReadOnlyList<Order>> GetOrdersForUserAsync(
         string buyerEmail)
     {
-        throw new NotImplementedException();
+        var spec = new OrderWithItemsAndOrderingSpecification(buyerEmail);
+
+        return await _unitOfWork.Repository<Order>()
+            .ListAsync(spec);
     }
 
-    public async Task<Order> GetOrderByIdAsync(
+    public async Task<Order?> GetOrderByIdAsync(
         int    id,
         string buyerEmail)
     {
-        throw new NotImplementedException();
+        var spec = new OrderWithItemsAndOrderingSpecification(
+            id,
+            buyerEmail);
+
+        return await _unitOfWork.Repository<Order>()
+            .GetEntityWithSpec(spec);
     }
 
-    public async Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync() =>
+        await _unitOfWork.Repository<DeliveryMethod>()
+            .ListAllAsync();
 }

@@ -34,7 +34,8 @@ public class Order : BaseEntity
 
     public OrderStatus Status { get; init; } = OrderStatus.Pending;
 
-    public string PaymentIntentId { get; init; }
+    //TODO: temp to nullable
+    public string? PaymentIntentId { get; init; }
 
     public decimal GetTotal() => Subtotal + DeliveryMethod.Price;
 }

@@ -15,7 +15,7 @@ public interface IOrderService
     Task<IReadOnlyList<Order>> GetOrdersForUserAsync(
         string buyerEmail);
 
-    Task<Order> GetOrderByIdAsync(
+    Task<Order?> GetOrderByIdAsync(
         int    id,
         string buyerEmail);
 
